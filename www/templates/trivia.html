@@ -2,16 +2,20 @@
     <ion-content padding="true" style="background: url(img/6oclLPrmRkegJc34YNVJ_trivia.jpg) no-repeat center;background-size:cover;" class="has-header">
         <div id="trivia-container1">
             <form id="trivia-form4" class="list">
-                <label class="item item-input" id="trivia-textarea2">
-                    <textarea placeholder="">{{pregElegida.pregunta}}</textarea>
+                <label class="item item-input" id="trivia-textarea">
+                    <textarea class="triviaText" placeholder="">{{pregElegida.pregunta}}</textarea>
                 </label>
             </form>
-            <button id="r1" class="button button-energized  button-block button-outline" 
+            <button id="r1" class="button button-energized respuesta button-block botonRes" 
             ng-click="validar('r1')">{{pregElegida.opciones.r1}}</button>
-            <button id="r2" class="button button-energized  button-block button-outline" 
+            <button id="r2" class="button button-energized  respuesta button-block botonRes" 
             ng-click="validar('r2')">{{pregElegida.opciones.r2}}</button>
-            <button id="r3" class="button button-energized  button-block button-outline" 
+            <button id="r3" class="button button-energized respuesta button-block botonRes" 
             ng-click="validar('r3')">{{pregElegida.opciones.r3}}</button>
+
+            <button id="siguiente" class="button button-positive ng-hide button-block button-outline" 
+            ng-click="siguiente()" > Siguiente --> </button>
+
         </div>
     </ion-content>
 </ion-view>

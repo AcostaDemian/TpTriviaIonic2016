@@ -1,9 +1,10 @@
 angular.module('app.controllers', ['firebase','ngCordova'])
   
-.controller('triviaCtrl', ['$scope', '$stateParams', '$firebaseArray', '$timeout', '$cordovaVibration', '$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('triviaCtrl', ['$scope', '$stateParams', '$firebaseArray', '$timeout', '$cordovaVibration', '$state', '$window', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $firebaseArray, $timeout, $cordovaVibration,$state) {
+function ($scope, $stateParams, $firebaseArray, $timeout, $cordovaVibration,$state, $window) {
+
 
   var pregsRef = new Firebase("https://triviapoke.firebaseio.com/preguntas");
 
@@ -28,29 +29,30 @@ function ($scope, $stateParams, $firebaseArray, $timeout, $cordovaVibration,$sta
 
 //Funcion validar respuesta correcta
   $scope.validar = function(rtaElegida){
+    $('.respuesta').prop( "disabled", true );
+    $('#siguiente').removeClass("ng-hide");
   	if(rtaElegida == $scope.rtaCorrecta)
   	{
   		console.log("WIN"); 
-      document.getElementById(rtaElegida).className = "button button-balanced  button-block";
+      document.getElementById(rtaElegida).className = "button respuesta button-balanced button-block botonRes";
       	//Vibracion
       try
       {
-      $cordovaVibration.vibrate(100);
+        $cordovaVibration.vibrate(100);
       }
       catch(err)
       {
         console.log("No es un disposivio movil");
       }
-
   	}
   	else
   		{
   			console.log("FAIL");
-        document.getElementById(rtaElegida).className = "button button-assertive  button-block";
+        document.getElementById(rtaElegida).className = "button respuesta button-assertive button-block botonRes";
         //Vibracion
       try
       {
-      $cordovaVibration.vibrate([100,100,100]);
+        $cordovaVibration.vibrate([100,100,100]);
       }
       catch(err)
       {
@@ -59,6 +61,10 @@ function ($scope, $stateParams, $firebaseArray, $timeout, $cordovaVibration,$sta
   		}
 
   };
+
+  $scope.siguiente = function() {
+   $window.location.reload();
+}
 
 }])
    
