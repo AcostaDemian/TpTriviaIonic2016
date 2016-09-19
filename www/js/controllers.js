@@ -1,56 +1,168 @@
-angular.module('starter.controllers', [])
+angular.module('app.controllers', ['firebase','ngCordova'])
+  
+.controller('triviaCtrl', ['$scope', '$stateParams', '$firebaseArray', '$timeout', '$cordovaVibration', '$state', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $stateParams, $firebaseArray, $timeout, $cordovaVibration,$state) {
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+  var pregsRef = new Firebase("https://triviapoke.firebaseio.com/preguntas");
 
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
+  $scope.pregElegida;
+  $scope.rtaCorrecta;
+  $scope.rtaElegida;
 
-  // Form data for the login modal
-  $scope.loginData = {};
-
-  // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/login.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
+  $scope.rand = Math.floor((Math.random() * 4) + 1);
+  
+  pregsRef.on("child_added", function(snapshot){
+  	$timeout(function(){
+  		var info = snapshot.val();
+  		if(info.id === $scope.rand)
+  		{
+	  		$scope.pregElegida = info;
+	  		$scope.rtaCorrecta = info.respuesta;  
+	  		console.log($scope.pregElegida);	
+	  		console.log($scope.rtaCorrecta);		
+  		}  		
+  	});
   });
 
-  // Triggered in the login modal to close it
-  $scope.closeLogin = function() {
-    $scope.modal.hide();
+//Funcion validar respuesta correcta
+  $scope.validar = function(rtaElegida){
+  	if(rtaElegida == $scope.rtaCorrecta)
+  	{
+  		console.log("WIN"); 
+      document.getElementById(rtaElegida).className = "button button-balanced  button-block";
+      	//Vibracion
+      try
+      {
+      $cordovaVibration.vibrate(100);
+      }
+      catch(err)
+      {
+        console.log("No es un disposivio movil");
+      }
+
+  	}
+  	else
+  		{
+  			console.log("FAIL");
+        document.getElementById(rtaElegida).className = "button button-assertive  button-block";
+        //Vibracion
+      try
+      {
+      $cordovaVibration.vibrate([100,100,100]);
+      }
+      catch(err)
+      {
+        console.log("No es un disposivio movil");
+      }
+  		}
+
   };
 
-  // Open the login modal
-  $scope.login = function() {
-    $scope.modal.show();
+}])
+   
+.controller('pianoCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $stateParams, $cordovaNativeAudio) {
+
+	
+	$scope.pikachu = function(){
+		try{
+         window.plugins.NativeAudio.play('pikachu');
+		}
+		catch(error){
+	      	console.log("No es un celular");
+		}
+	};
+
+  $scope.haunter = function(){
+      try{
+         window.plugins.NativeAudio.play('haunter');
+    }
+    catch(error){
+          console.log("No es un celular");
+    }
   };
 
-  // Perform the login action when the user submits the login form
-  $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
-
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
+  $scope.mrmine = function(){
+      try{
+         window.plugins.NativeAudio.play('mrmine');
+    }
+    catch(error){
+          console.log("No es un celular");
+    }
   };
-})
 
-.controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
-  ];
-})
+  $scope.ninetales = function(){
+      try{
+         window.plugins.NativeAudio.play('ninetales');
+    }
+    catch(error){
+          console.log("No es un celular");
+    }
+  };
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
-});
+  $scope.charizard = function(){
+      try{
+         window.plugins.NativeAudio.play('charizard');
+    }
+    catch(error){
+          console.log("No es un celular");
+    }
+  };
+
+  $scope.rapidash = function(){
+      try{
+         window.plugins.NativeAudio.play('rapidash');
+    }
+    catch(error){
+          console.log("No es un celular");
+    }
+  };
+
+
+
+}])
+   
+.controller('menuCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $stateParams) {
+
+
+}])
+   
+.controller('loginCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $stateParams) {
+
+
+}])
+   
+.controller('movimientoCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $stateParams) {
+
+
+}])
+   
+.controller('inicioCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $stateParams) {
+
+
+}])
+   
+.controller('infoCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $stateParams) {
+
+
+}])
+ 
