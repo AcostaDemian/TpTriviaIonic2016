@@ -1,5 +1,5 @@
 angular.module('app.controllers', ['firebase','ngCordova'])
-  
+
 .controller('triviaCtrl', ['$scope', '$stateParams', '$firebaseArray', '$timeout', '$cordovaVibration', '$state', '$window', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
@@ -33,7 +33,6 @@ function ($scope, $stateParams, $firebaseArray, $timeout, $cordovaVibration,$sta
     $('#siguiente').removeClass("ng-hide");
   	if(rtaElegida == $scope.rtaCorrecta)
   	{
-  		console.log("WIN"); 
       document.getElementById(rtaElegida).className = "button respuesta button-balanced button-block botonRes";
       	//Vibracion
       try
@@ -47,24 +46,23 @@ function ($scope, $stateParams, $firebaseArray, $timeout, $cordovaVibration,$sta
   	}
   	else
   		{
-  			console.log("FAIL");
-        document.getElementById(rtaElegida).className = "button respuesta button-assertive button-block botonRes";
-        //Vibracion
-      try
-      {
-        $cordovaVibration.vibrate([100,100,100]);
-      }
-      catch(err)
-      {
-        console.log("No es un disposivio movil");
-      }
+          document.getElementById(rtaElegida).className = "button respuesta button-assertive button-block botonRes";
+          //Vibracion
+        try
+        {
+          $cordovaVibration.vibrate([100,100,100]);
+        }
+        catch(err)
+        {
+          console.log("No es un disposivio movil");
+        }
   		}
 
   };
 
   $scope.siguiente = function() {
    $window.location.reload();
-}
+  }
 
 }])
    
@@ -73,6 +71,7 @@ function ($scope, $stateParams, $firebaseArray, $timeout, $cordovaVibration,$sta
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $cordovaNativeAudio) {
 
+  $scope.secuencia = [];
 	
 	$scope.pikachu = function(){
 		try{
@@ -81,6 +80,7 @@ function ($scope, $stateParams, $cordovaNativeAudio) {
 		catch(error){
 	      	console.log("No es un celular");
 		}
+    $scope.secuencia.push("pikachu");
 	};
 
   $scope.haunter = function(){
@@ -90,6 +90,7 @@ function ($scope, $stateParams, $cordovaNativeAudio) {
     catch(error){
           console.log("No es un celular");
     }
+    $scope.secuencia.push("haunter");
   };
 
   $scope.mrmine = function(){
@@ -99,6 +100,7 @@ function ($scope, $stateParams, $cordovaNativeAudio) {
     catch(error){
           console.log("No es un celular");
     }
+    $scope.secuencia.push("mrmine");
   };
 
   $scope.ninetales = function(){
@@ -108,6 +110,7 @@ function ($scope, $stateParams, $cordovaNativeAudio) {
     catch(error){
           console.log("No es un celular");
     }
+    $scope.secuencia.push("ninetales");
   };
 
   $scope.charizard = function(){
@@ -117,6 +120,7 @@ function ($scope, $stateParams, $cordovaNativeAudio) {
     catch(error){
           console.log("No es un celular");
     }
+    $scope.secuencia.push("charizard");
   };
 
   $scope.rapidash = function(){
@@ -126,6 +130,7 @@ function ($scope, $stateParams, $cordovaNativeAudio) {
     catch(error){
           console.log("No es un celular");
     }
+    $scope.secuencia.push("rapidash");
   };
 
 
@@ -145,13 +150,17 @@ function ($scope, $stateParams) {
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
 
+  $scope.login = function(){
+    
+  };
+
 
 }])
    
 .controller('movimientoCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $stateParams, $cordovaFile) {
 
 
 }])
