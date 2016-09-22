@@ -20,16 +20,6 @@ angular.module('app.routes', [])
     }
   })
 
-  .state('menu.piano', {
-    url: '/piano',
-    views: {
-      'side-menu21': {
-        templateUrl: 'templates/piano.html',
-        controller: 'pianoCtrl'
-      }
-    }
-  })
-
   .state('menu', {
     url: '/menu',
     templateUrl: 'templates/menu.html',
@@ -40,16 +30,6 @@ angular.module('app.routes', [])
     url: '/login',
     templateUrl: 'templates/login.html',
     controller: 'loginCtrl'
-  })
-
-  .state('menu.movimiento', {
-    url: '/movimiento',
-    views: {
-      'side-menu21': {
-        templateUrl: 'templates/movimiento.html',
-        controller: 'movimientoCtrl'
-      }
-    }
   })
 
   .state('menu.inicio', {

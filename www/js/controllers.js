@@ -61,79 +61,35 @@ function ($scope, $stateParams, $firebaseArray, $timeout, $cordovaVibration,$sta
   };
 
   $scope.siguiente = function() {
-   $window.location.reload();
+   //$window.location.reload();
+
+    $('.respuesta').prop( "disabled", false );
+    $('#siguiente').addClass("ng-hide");
+    document.getElementById("r1").className = "button button-energized  respuesta button-block botonRes";
+    document.getElementById("r2").className = "button button-energized  respuesta button-block botonRes";
+    document.getElementById("r3").className = "button button-energized  respuesta button-block botonRes";
+
+   var pregsRef = new Firebase("https://triviapoke.firebaseio.com/preguntas");
+
+    $scope.pregElegida;
+    $scope.rtaCorrecta;
+    $scope.rtaElegida;
+
+    $scope.rand = Math.floor((Math.random() * 4) + 1);
+    
+    pregsRef.on("child_added", function(snapshot){
+      $timeout(function(){
+        var info = snapshot.val();
+        if(info.id === $scope.rand)
+        {
+          $scope.pregElegida = info;
+          $scope.rtaCorrecta = info.respuesta;  
+          console.log($scope.pregElegida);  
+          console.log($scope.rtaCorrecta);    
+        }     
+      });
+    });
   }
-
-}])
-   
-.controller('pianoCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $cordovaNativeAudio) {
-
-  $scope.secuencia = [];
-	
-	$scope.pikachu = function(){
-		try{
-         window.plugins.NativeAudio.play('pikachu');
-		}
-		catch(error){
-	      	console.log("No es un celular");
-		}
-    $scope.secuencia.push("pikachu");
-	};
-
-  $scope.haunter = function(){
-      try{
-         window.plugins.NativeAudio.play('haunter');
-    }
-    catch(error){
-          console.log("No es un celular");
-    }
-    $scope.secuencia.push("haunter");
-  };
-
-  $scope.mrmine = function(){
-      try{
-         window.plugins.NativeAudio.play('mrmine');
-    }
-    catch(error){
-          console.log("No es un celular");
-    }
-    $scope.secuencia.push("mrmine");
-  };
-
-  $scope.ninetales = function(){
-      try{
-         window.plugins.NativeAudio.play('ninetales');
-    }
-    catch(error){
-          console.log("No es un celular");
-    }
-    $scope.secuencia.push("ninetales");
-  };
-
-  $scope.charizard = function(){
-      try{
-         window.plugins.NativeAudio.play('charizard');
-    }
-    catch(error){
-          console.log("No es un celular");
-    }
-    $scope.secuencia.push("charizard");
-  };
-
-  $scope.rapidash = function(){
-      try{
-         window.plugins.NativeAudio.play('rapidash');
-    }
-    catch(error){
-          console.log("No es un celular");
-    }
-    $scope.secuencia.push("rapidash");
-  };
-
-
 
 }])
    
@@ -156,57 +112,6 @@ function ($scope, $stateParams) {
 
 
 }])
-   
-.controller('movimientoCtrl', ['$scope', '$stateParams','$cordovaDeviceMotion', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams,$cordovaDeviceMotion) {
-
-  $scope.x;
-  $scope.y;
-  $scope.z;
-  $scope.timestamp;
-
-  $scope.imagen= "img/pokeball.png";
-
-  var options = { frequency: 100 };
-
-  document.addEventListener("deviceready", function () {
-
-    var watch = $cordovaDeviceMotion.watchAcceleration(options);
-    watch.then(
-      null,
-      function(error) {
-      // An error occurred
-      },
-      function(result) {
-
-        if(result.x > 8)
-        {
-          $scope.imagen= "img/izquierda.png";
-        }
-        if(result.x < -8)
-        {
-          $scope.imagen= "img/derecha.png";
-        }
-
-        if(result.y > 8)
-        {
-          $scope.imagen= "img/abajo.png";
-        }
-        if(result.y < -8)
-        {
-          $scope.imagen= "img/arriba.png";
-        }
-        if(result.x ==0 && result.y ==0)
-          $scope.imagen= "img/pokeball.png";
-
-    });
-
-  }, false);
-
-}])
-   
 .controller('inicioCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
