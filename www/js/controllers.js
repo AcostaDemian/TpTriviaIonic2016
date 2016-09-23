@@ -21,8 +21,8 @@ function ($scope, $stateParams, $ionicPopup , $firebaseArray, $timeout, $cordova
 
     do{
       $scope.rand = Math.floor((Math.random() * 4) + 1);
-      console.log($scope.rand);
-      console.log($scope.arrayPreguntas.indexOf($scope.rand));
+      //console.log($scope.rand);
+      //console.log($scope.arrayPreguntas.indexOf($scope.rand));
     }while ($scope.arrayPreguntas.indexOf($scope.rand) != -1 )
     
     pregsRef.on("child_added", function(snapshot){
@@ -33,8 +33,8 @@ function ($scope, $stateParams, $ionicPopup , $firebaseArray, $timeout, $cordova
           $scope.arrayPreguntas.push(info.id);
   	  		$scope.pregElegida = info;
   	  		$scope.rtaCorrecta = info.respuesta;  
-  	  		console.log($scope.pregElegida);	
-  	  		console.log($scope.rtaCorrecta);		
+  	  		//console.log($scope.pregElegida);	
+  	  		//console.log($scope.rtaCorrecta);		
     		}  		
     	});
     });
@@ -57,6 +57,7 @@ function ($scope, $stateParams, $ionicPopup , $firebaseArray, $timeout, $cordova
 
   $scope.arrayRespuestas.push(rtaElegida);
 
+  //console.log("length " + $scope.arrayPreguntas.length);
     if($scope.arrayPreguntas.length<3)
     {
       $scope.boton= "Continuar -->";
@@ -139,7 +140,7 @@ function ($scope, $stateParams, $ionicPopup , $firebaseArray, $timeout, $cordova
     habilitarBotones();
     $scope.arrayPreguntas = [];
     $scope.correcto= 0;
-
+    NuevaPregunta();
   };
 
 }])
