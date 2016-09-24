@@ -77,9 +77,10 @@ function ($scope, $stateParams, $ionicPopup , $firebaseArray, $timeout, $cordova
   	{
       $scope.correcto ++;
       document.getElementById(rtaElegida).className = "button respuesta button-balanced button-block botonRes";
-      	//Vibracion
+      	//Vibracion y Sonido
       try
       {
+        window.plugins.NativeAudio.play('correcto');
         $cordovaVibration.vibrate(100);
       }
       catch(err)
@@ -90,9 +91,10 @@ function ($scope, $stateParams, $ionicPopup , $firebaseArray, $timeout, $cordova
   	else
   		{
           document.getElementById(rtaElegida).className = "button respuesta button-assertive button-block botonRes";
-          //Vibracion
+          //Vibracion y Sonido
         try
         {
+          window.plugins.NativeAudio.play('incorrecto');
           $cordovaVibration.vibrate([100,100,100]);
         }
         catch(err)
@@ -153,12 +155,12 @@ function ($scope, $stateParams) {
 
 }])
    
-.controller('loginCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('loginCtrl', ['$scope', '$stateParams','$location', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $stateParams,$location) {
 
-  $scope.login = function(username ){
+  $scope.login = function(username ){    
     localStorage.setItem('username', username);
   };
 
