@@ -1,7 +1,7 @@
 <ion-view title="Inicio" id="page7">
     <ion-content padding="true" style="background: url(img/IW0VAx7nRLm4IDjxFQyU_inico.jpg) no-repeat center;background-size:cover;" class="has-header">
 	    <ul class="list">
-	    	<li class="item" ng-repeat="items in list" style="margin-left:10px;margin-right:10px"><strong>Nombre: {{items.username}} </br> Respuestas: {{items.cantidadCorrectas}}/3</strong></li >
+	    	<li class="item" ng-repeat="items in list|orderBy:'cantidadCorrectas':reverse=true|limitTo:3" style="margin-left:10px;margin-right:10px"><strong>Nombre: {{items.username}} </br> Respuestas: {{items.cantidadCorrectas}}/3</strong></li >
 	    </ul>
 
     </ion-content>
